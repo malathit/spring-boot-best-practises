@@ -27,5 +27,4 @@ public class SampleController {
     service.sendMessage(message);
     return new ResponseEntity(HttpStatus.OK);
   }
-
 }
