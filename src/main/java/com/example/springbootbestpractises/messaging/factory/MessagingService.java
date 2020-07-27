@@ -1,4 +1,4 @@
-package com.example.springbootbestpractises.factory;
+package com.example.springbootbestpractises.messaging.factory;
 
 public interface MessagingService {
   String getType();

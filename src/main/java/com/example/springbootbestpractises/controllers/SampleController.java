@@ -1,8 +1,11 @@
-package com.example.springbootbestpractises;
+package com.example.springbootbestpractises.controllers;
 
 import com.example.springbootbestpractises.constants.MessagingServiceType;
-import com.example.springbootbestpractises.factory.MessageFactory;
-import com.example.springbootbestpractises.factory.MessagingService;
+import com.example.springbootbestpractises.dto.request.CreateCustomerRequest;
+import com.example.springbootbestpractises.messaging.factory.MessageFactory;
+import com.example.springbootbestpractises.messaging.factory.MessagingService;
+import com.example.springbootbestpractises.models.repositories.CustomerRepository;
+import javax.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SampleController {
 
   private MessageFactory messageFactory;
+  private CustomerRepository customerRepository;
 
   @PostMapping("messaging/{messagingServiceType}")
   ResponseEntity sendMessage(@RequestBody String message,
@@ -26,5 +30,17 @@ public class SampleController {
     MessagingService service = messageFactory.getMessagingService(messagingServiceType);
     service.sendMessage(message);
     return new ResponseEntity(HttpStatus.OK);
+  }
+
+  @PostMapping("customer")
+  ResponseEntity newCustomer(@RequestBody @Valid CreateCustomerRequest customerDto) {
+    com.example.springbootbestpractises.models.Customer customerModel =
+        com.example.springbootbestpractises.models.Customer.builder()
+            .firstName(customerDto.getFirstName())
+            .lastName(customerDto.getLastName())
+            .username(customerDto.getUsername())
+            .build();
+    customerRepository.save(customerModel);
+    return new ResponseEntity(HttpStatus.CREATED);
   }
 }

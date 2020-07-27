@@ -1,4 +1,4 @@
-package com.example.springbootbestpractises.factory;
+package com.example.springbootbestpractises.messaging.factory;
 
 import com.example.springbootbestpractises.constants.MessagingServiceType;
 import org.springframework.stereotype.Component;
