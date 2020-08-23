@@ -1,0 +1,47 @@
+version: "3"
+services: 
+    app:
+        build: 
+            context: .
+            dockerfile: Dockerfile
+            args:
+                JAR_FILE: target/springboot-best-practises-${SERVICE_VERSION}.jar
+        ports: 
+            - "8080:8080"
+        environment: 
+            spring.datasource.url: jdbc:mysql://mysql:3306/default
+        depends_on: 
+            - mysql
+        networks: 
+            - my_network
+    mysql:
+        volumes:
+            - my-db:/var/lib/mysql
+            - ./src/main/resources/db/migration/:/docker-entrypoint-initdb.d/:cached
+        image: mysql:8.0
+        environment:
+            MYSQL_DATABASE: default
+            MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+        ports:
+            - '3306:3306'
+        networks:
+            - my_network
+    prometheus:
+        image: prom/prometheus:v2.20.1
+        volumes: 
+            - ./prometheus.yml:/etc/prometheus/prometheus.yml
+        ports: 
+            - 9090:9090
+        networks: 
+            - my_network
+    grafana:
+        image: grafana/grafana:6.5.0-ubuntu
+        ports: 
+            - 3000:3000
+        networks: 
+            - my_network
+networks:
+  my_network:
+    driver: "bridge"
+volumes:
+  my-db: {}
