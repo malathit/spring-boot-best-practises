@@ -7,21 +7,19 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
+      mysql:
         image: mysql:8.0
         ports:
-            3306:3306
+          - 3306:3306
         env:
-            MYSQL_DATABASE: default
-            MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
-        volumes:
-            - my-db:/var/lib/mysql
-            - ./src/main/resources/db/migration/:/docker-entrypoint-initdb.d/
-
+          MYSQL_DATABASE: default
+          MYSQL_ROOT_PASSWORD: admin
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK
         uses: actions/setup-java@v1
         with:
           java-version: 12.0.2
+      - run: for sql_file in `ls src/main/resources/db/migration/*.sql`; do mysql -u root -padmin < $sql_file; done
       - name: Build with Maven
         run: mvn clean install --file pom.xml
