@@ -14,10 +14,10 @@ This project demonstrates the best practises to be followed when developing a sp
 ## How to run
 Build the jar using command,
     
-    `mvn clean install -DskipTests`
+    mvn clean install -DskipTests
 
 Start the application with the command,
     
-    `docker-compose up`
+    docker-compose up
 
 
