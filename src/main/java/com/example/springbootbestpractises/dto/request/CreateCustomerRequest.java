@@ -14,13 +14,13 @@ import lombok.Getter;
 @GroupSequence({CreateCustomerRequest.class, CustomerChecks.class})
 public class CreateCustomerRequest {
 
-  @Size(min = 2, max = 100, message = "CreateCustomerRequest's first name should be between {min} & {max} "
-      + "characters long")
+  @Size(min = 2, max = 100, message = "CreateCustomerRequest's first name " 
+        + "should be between {min} & {max} characters long")
   @NotBlank(message = "CreateCustomerRequest's first name is required")
   private String firstName;
 
-  @Size(min = 2, max = 100, message = "CreateCustomerRequest's last name should be between {min} & {max} "
-      + "characters long")
+  @Size(min = 2, max = 100, message = "CreateCustomerRequest's last name " 
+        + "should be between {min} & {max} characters long")
   private String lastName;
 
   @Max(value = 100, message = "CreateCustomerRequest's age' ${validatedValue}' is invalid, "

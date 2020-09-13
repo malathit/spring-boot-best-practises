@@ -22,11 +22,15 @@ public class MessageFactory {
         messagingService.getType(), messagingService));
   }
 
+  /**
+   * Gets the messaging service based on the input {@link MessagingServiceType}.
+   */
   public MessagingService getMessagingService(MessagingServiceType messagingServiceType) {
     if (messagingServiceCache.containsKey(messagingServiceType.getValue())) {
       return messagingServiceCache.get(messagingServiceType.getValue());
     } else {
-      String message = "No implementation found for messaging type " + messagingServiceType.getValue();
+      String message = "No implementation found for messaging type " 
+          + messagingServiceType.getValue();
       System.out.println(message);
       throw new UnsupportedOperationException(message);
     }

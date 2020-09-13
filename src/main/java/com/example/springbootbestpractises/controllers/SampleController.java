@@ -24,22 +24,28 @@ public class SampleController {
   private MessageFactory messageFactory;
   private CustomerRepository customerRepository;
 
+  /**
+   * Sends message to the input @MessagingServiceType.
+   */
   @PostMapping("messaging/{messagingServiceType}")
-  ResponseEntity sendMessage(@RequestBody String message,
-                             @PathVariable("messagingServiceType") MessagingServiceType messagingServiceType) {
+  public ResponseEntity sendMessage(@RequestBody String message,
+      @PathVariable("messagingServiceType") MessagingServiceType messagingServiceType) {
     MessagingService service = messageFactory.getMessagingService(messagingServiceType);
     service.sendMessage(message);
     return new ResponseEntity(HttpStatus.OK);
   }
 
+  /**
+   * Creates a new customer in DB.
+   */
   @PostMapping("customer")
-  ResponseEntity newCustomer(@RequestBody @Valid CreateCustomerRequest customerDto) {
+  public ResponseEntity newCustomer(@RequestBody @Valid CreateCustomerRequest customerDto) {
     com.example.springbootbestpractises.models.Customer customerModel =
         com.example.springbootbestpractises.models.Customer.builder()
-            .firstName(customerDto.getFirstName())
-            .lastName(customerDto.getLastName())
-            .username(customerDto.getUsername())
-            .build();
+        .firstName(customerDto.getFirstName())
+        .lastName(customerDto.getLastName())
+        .username(customerDto.getUsername())
+        .build();
     customerRepository.save(customerModel);
     return new ResponseEntity(HttpStatus.CREATED);
   }
