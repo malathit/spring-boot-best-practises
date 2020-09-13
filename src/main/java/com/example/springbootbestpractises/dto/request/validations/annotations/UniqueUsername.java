@@ -16,7 +16,18 @@ import javax.validation.Payload;
 @Constraint(validatedBy = UniqueUsernameValidator.class)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UniqueUsername {
+  /**
+   * Default message. 
+   */
   String message() default "";
+
+  /**
+   * validation group.
+   */
   Class<?>[] groups() default {};
+
+  /**
+   * Payload if any.
+   */
   Class<? extends Payload>[] payload() default {};
 }
