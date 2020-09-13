@@ -24,4 +24,4 @@ jobs:
         run: mvn clean install --file pom.xml
       - uses: malathit/localstack-action@master
         with:
-          who-to-greet: 'Malathi'
+          services: 's3, ec2'
