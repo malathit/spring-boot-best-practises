@@ -1,6 +1,7 @@
 # spring-boot-best-practises
 
 [![Build Status](https://github.com/malathit/spring-boot-best-practises/workflows/Build/badge.svg)](https://github.com/malathit/spring-boot-best-practises/workflows/Build/badge.svg)
+[![Test Coverage](https://byob.yarr.is/malathit/spring-boot-best-practises/line_coverage)](https://byob.yarr.is/malathit/spring-boot-best-practises/line_coverage)
 
 ## About 
 This project demonstrates the best practises to be followed when developing a spring boot project. 

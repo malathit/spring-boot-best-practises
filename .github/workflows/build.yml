@@ -20,8 +20,21 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 12.0.2
+      - uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
       - name: Build with Maven
         run: mvn clean install --file pom.xml
-      - uses: malathit/localstack-action@master
+      - id: parse_jacoco_csv_report
+        run: echo "::set-output name=line_coverage::`python3 .github/workflows/parse_jacoco.py`"
+      - name: coverage badge
+        uses: RubbaBoy/BYOB@v1.1.0
         with:
-          services: 's3, ec2'
+          NAME: line_coverage
+          LABEL: 'Line coverage'
+          STATUS: ${{ steps.parse_jacoco_csv_report.outputs.line_coverage }}
+          COLOR: 00EEFF
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
