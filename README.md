@@ -9,7 +9,7 @@ This project demonstrates the best practises to be followed when developing a sp
 ## Pre-requisites
 - Docker
 - Docker compose
-- Java 12 (openjdk)
+- Java 11
 - Maven 3
 
 ## How to run
